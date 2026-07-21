@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herboristería Todo Suelto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:ital,wght@0,300;0,400;0,500;0,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --naranja: #d9750f;        /* barra superior */
+    --naranja-oscuro: #b35c07;
+    --naranja-claro: #f0913a;  /* botones */
+    --naranja-suave: #f6b26f;  /* barra de WhatsApp */
+    --marron: #4a3623;
+    --texto: #3f3a35;
+    --gris-fondo: #e9e6e2;
+    --sans: 'Jost', 'Segoe UI', Tahoma, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family: var(--sans);
+    background: var(--gris-fondo);
+    color: var(--texto);
+    padding: 74px 0 100px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- Barra superior ---------- */
+  header{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 58px;
+    background: var(--naranja);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 16px;
+    z-index: 300;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    animation: bajar .5s ease both;
+  }
+  @keyframes bajar{
+    from{ transform: translateY(-100%); }
+    to{ transform: translateY(0); }
+  }
+  .logo-circle{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #2c1c0b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    border: 2px solid rgba(255,255,255,0.6);
+  }
+  header h1{
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: .5px;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #cart-top{
+    position: relative;
+    background: var(--naranja-claro);
+    border: none;
+    color: #fff;
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform .2s;
+  }
+  #cart-top:hover{ transform: scale(1.08); }
+  #cart-count{
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #2c1c0b;
+    color: #fff;
+    font-size: .7rem;
+    font-weight: 700;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ---------- Columna central blanca ---------- */
+  main{
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px 16px 50px;
+    box-shadow: 0 0 24px rgba(0,0,0,0.12);
+    min-height: 70vh;
+  }
+  .tagline{
+    text-align: center;
+    font-size: 1.05rem;
+    margin: 4px 0 14px;
+  }
+  .tagline-box{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+  .tagline-box strong{
+    display: block;
+    color: #7a4a12;
+    letter-spacing: 1px;
+    font-size: 1.05rem;
+  }
+  .tagline-box span{
+    color: #8a8378;
+    font-size: .9rem;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+  }
+
+  /* ---------- Categorías: banner con acordeón ---------- */
+  .categoria{ margin-top: 14px; }
+  .cat-banner{
+    position: relative;
+    width: 100%;
+    height: 108px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    background-color: #6b4a26;
+    border-radius: 4px;
+    overflow: hidden;
+    font-family: var(--sans);
+    transition: filter .3s;
+  }
+  .cat-banner:hover{ filter: brightness(1.1); }
+  .cat-banner::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(35,22,10,0.45);
+  }
+  .cat-banner h2{
+    position: relative;
+    color: #fff;
+    font-size: clamp(1.15rem, 3vw, 1.7rem);
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    padding: 0 52px;
+  }
+  .cat-toggle{
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #fff;
+    color: var(--naranja);
+    width: 46px;
+    height: 34px;
+    border-radius: 17px 0 0 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  }
+  .grid{ display: none; }
+  .categoria.abierta .grid{
+    display: block;
+    animation: desplegar .4s ease;
+  }
+  @keyframes desplegar{
+    from{ opacity: 0; transform: translateY(-8px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  /* Aparición suave al hacer scroll */
+  .reveal{
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1);
+    transition-delay: calc(var(--i, 0) * 60ms);
+  }
+  .reveal.visible{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---------- Productos: filas ---------- */
+  .card{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 6px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    transition: background .25s;
+  }
+  .card:hover{ background: #fdf6ee; }
+  .card.card-oferta{ background: #fff8ef; border-left: 3px solid var(--naranja-claro); }
+  .card .foto{
+    position: relative;
+    width: 88px;
+    height: 88px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f3ede4;
+  }
+  .card .foto img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .5s;
+  }
+  .card:hover .foto img{ transform: scale(1.07); }
+  .card-info{ flex: 1; min-width: 0; }
+  .card-info h3{
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: #46403a;
+  }
+  .combo-lista{
+    list-style: none;
+    font-size: .82rem;
+    color: var(--naranja);
+    margin: 3px 0;
+  }
+  .combo-lista li{ display: inline; }
+  .combo-lista li + li::before{ content: " · "; }
+  .precio{
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-top: 4px;
+  }
+  .unidad{
+    font-size: .78rem;
+    color: #999;
+  }
+  .precio-normal{
+    display: inline-block;
+    font-size: .8rem;
+    color: #a09a90;
+    text-decoration: line-through;
+    margin-right: 8px;
+  }
+  .ahorro{
+    display: inline-block;
+    font-size: .78rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--naranja-claro);
+    border-radius: 999px;
+    padding: 2px 10px;
+  }
+  .oferta-badge{
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    background: var(--naranja);
+    color: #fff;
+    font-size: .6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    padding: 3px 8px;
+    border-radius: 999px;
+  }
+  .tamano-select{
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-family: var(--sans);
+    font-size: .82rem;
+    margin-top: 6px;
+    max-width: 240px;
+    width: 100%;
+    background: #fff;
+    color: var(--texto);
+  }
+  .card-action{ flex-shrink: 0; }
+  .card-action button{
+    background: var(--naranja-claro);
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: .85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: transform .2s, background .2s, box-shadow .2s;
+  }
+  .card-action button:hover{
+    background: var(--naranja);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px -8px rgba(0,0,0,0.4);
+  }
+  .card-action button.added{ background: #43a047; }
+  @media (max-width: 560px){
+    .card{ flex-wrap: wrap; }
+    .card-action{ width: 100%; }
+    .card-action button{ width: 100%; }
+  }
+
+  /* ---------- Barra inferior de WhatsApp ---------- */
+  #wsp-bar{
+    position: fixed;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(92%, 640px);
+    background: var(--naranja-suave);
+    border: none;
+    border-radius: 999px;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--sans);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #3b2b16;
+    cursor: pointer;
+    z-index: 250;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.3);
+    transition: transform .25s, background .25s;
+    animation: subir .5s .3s ease both;
+  }
+  #wsp-bar:hover{
+    transform: translateX(-50%) translateY(-2px);
+    background: #f8bd82;
+  }
+  @keyframes subir{
+    from{ transform: translateX(-50%) translateY(120%); }
+    to{ transform: translateX(-50%) translateY(0); }
+  }
+  #wsp-bar .total-pill{
+    background: #fff;
+    border-radius: 999px;
+    padding: 4px 14px;
+  }
+
+  /* ---------- Carrito ---------- */
+  #cart-overlay{
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(30,20,10,0.5);
+    backdrop-filter: blur(2px);
+    z-index: 400;
+    animation: fade-in .3s ease both;
+  }
+  @keyframes fade-in{
+    from{ opacity: 0; }
+    to{ opacity: 1; }
+  }
+  #cart-panel{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 380px;
+    height: 100%;
+    background: #fff;
+    box-shadow: -12px 0 40px rgba(30,20,10,0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 401;
+    animation: panel-in .45s cubic-bezier(.2,.8,.25,1) both;
+  }
+  @keyframes panel-in{
+    from{ transform: translateX(105%); }
+    to{ transform: translateX(0); }
+  }
+  #cart-panel-header{
+    background: var(--naranja);
+    color: #fff;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #cart-panel-header h2{
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: .5px;
+  }
+  #cart-close{
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: transform .25s;
+  }
+  #cart-close:hover{ transform: rotate(90deg); }
+  #cart-items{
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 16px;
+  }
+  .cart-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+  .cart-item-info{ flex: 1; }
+  .cart-item-info strong{
+    font-size: 0.9rem;
+    display: block;
+  }
+  .cart-item-info span{
+    font-size: 0.78rem;
+    color: #888;
+  }
+  .cart-qty{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cart-qty button{
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid var(--naranja);
+    background: #fff;
+    color: var(--naranja);
+    cursor: pointer;
+    font-weight: 700;
+    transition: background .2s, color .2s;
+  }
+  .cart-qty button:hover{
+    background: var(--naranja);
+    color: #fff;
+  }
+  .cart-qty span{
+    min-width: 18px;
+    text-align: center;
+    font-weight: 600;
+  }
+  .cart-item-remove{
+    background: none;
+    border: none;
+    color: #c0392b;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform .2s;
+  }
+  .cart-item-remove:hover{ transform: scale(1.2); }
+  #cart-empty{
+    text-align: center;
+    color: #999;
+    margin-top: 40px;
+  }
+  #cart-footer{
+    padding: 16px 20px;
+    border-top: 1px solid #eee;
+    background: #fdfaf6;
+  }
+  #cart-total{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--naranja-oscuro);
+  }
+  #whatsapp-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    background: #25D366;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 999px;
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .25s, box-shadow .25s;
+  }
+  #whatsapp-btn:hover:not(:disabled){
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px -10px rgba(37,211,102,0.7);
+  }
+  #whatsapp-btn:disabled{
+    background: #b9b4a6;
+    cursor: not-allowed;
+  }
+  footer{
+    background: var(--naranja);
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: .5px;
+    padding: 18px;
+    margin-top: 24px;
+  }
+
+  /* ---------- Lluvia lenta de semillas al hacer click ---------- */
+  .seed-fall{
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    will-change: transform, opacity;
+    animation: semilla-caida linear both;
+    user-select: none;
+  }
+  .seed-fall .seed-sway{
+    display: inline-block;
+    animation: semilla-vaiven ease-in-out infinite alternate;
+  }
+  @keyframes semilla-caida{
+    0%{ transform: translateY(0); opacity: 0; }
+    8%{ opacity: 1; }
+    78%{ opacity: 1; }
+    100%{ transform: translateY(var(--dy)); opacity: 0; }
+  }
+  @keyframes semilla-vaiven{
+    from{ transform: translateX(calc(var(--sway) * -1)) rotate(calc(var(--rot) * -1)); }
+    to{ transform: translateX(var(--sway)) rotate(var(--rot)); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+    .reveal{ opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-circle">🌿</div>
+  <h1>Herboristería Todo Suelto</h1>
+  <button id="cart-top" onclick="toggleCart(true)" aria-label="Ver carrito">
+    🛒
+    <span id="cart-count">0</span>
+  </button>
+</header>
+
+<main id="main">
+  <p class="tagline">Elegí tus productos, armá tu pedido y confirmalo por WhatsApp 📲</p>
+  <div class="tagline-box">
+    <strong>HERBORISTERÍA · PRODUCTOS A GRANEL</strong>
+    <span>La mejor variedad al mejor precio</span>
+  </div>
+</main>
+
+<button id="wsp-bar" onclick="toggleCart(true)">
+  <span>📩 Enviar por WhatsApp</span>
+  <span class="total-pill" id="wsp-total">$0</span>
+</button>
+
+<div id="cart-overlay" onclick="toggleCart(false)"></div>
+<div id="cart-panel">
+  <div id="cart-panel-header">
+    <h2>Tu pedido</h2>
+    <button id="cart-close" onclick="toggleCart(false)">✕</button>
+  </div>
+  <div id="cart-items">
+    <p id="cart-empty">Todavía no agregaste productos.</p>
+  </div>
+  <div id="cart-footer">
+    <div id="cart-total">
+      <span>Total</span>
+      <span id="cart-total-amount">$0</span>
+    </div>
+    <button id="whatsapp-btn" disabled onclick="enviarPedidoWhatsApp()">
+      📩 Enviar pedido por WhatsApp
+    </button>
+  </div>
+</div>
+
+<footer>
+  ¡Hacé tu pedido desde el celular! 📲 · Herboristería Todo Suelto · Marcos Paz, Buenos Aires
+</footer>
+
+<script>
+// ---------- DATOS DE PRODUCTOS ----------
+// Para agregar/editar productos, precios u opciones de peso, modificá este arreglo.
+// Cada producto tiene "opciones": [{unidad, precio}, ...]. Si tiene más de una opción,
+// en la página aparece un selector de tamaño (ej: 100gr / 1/2 kilo).
+
+// Fotos REALES de tus productos (deben estar en esta misma carpeta, junto a index.html).
+const LOCAL = {
+  harinaCoco: "harina%20de%20coco.jpg",
+  ciruelas: "ciruelas.jfif",
+  harinaAlmendras: "harina%20de%20almendras%20sin%20pil.webp",
+  maniSinSal: "mani%20sin%20sal.webp",
+  maniConVaina: "mani%20con%20vaina.jpg",
+  crocanteMani: "crocante-mani.png",
+  mixBrasilero: "mix%20brasilero.webp",
+  mixPremium: "mix%20frutos%20secos%20premiun",
+  pasasDeUva: "pasas%20de%20uva.jpg",
+  mixSemillas: "mix-de-semillas-para-ensalada.webp",
+  sesamoBlanco: "semilla%20de%20sesamo%20blanco.jfif",
+  granolaCinco: "granola%20cinco%20semillos.webp",
+  granolaCrujiente: "granola%20crujiente.webp",
+  mixEnergetico: "mix%20energetico%20oran.webp",
+  almohaditas: "almohaditas%20cereal.jfif",
+  aritosMiel: "aritos%20de%20miel.jfif",
+  bolitasChoco: "bolita%20de%20chocolate%20y%20avena.webp",
+  coposIntegrales: "copos%20integrales.jpg",
+  quinoaPop: "quinoa%20pop.jfif",
+  hojuelasSAzucar: "copos%20sin%20azucar.jfif",
+  fibritos: "fibritos.jpg",
+  ositosFrutilla: "ositos%20de%20frutilla%20y%20avena.webp",
+  harinaIntegral: "harina%20integral.jpg",
+  arrozYamani: "arroz%20yamani.jfif",
+  yela: "yela.jfif",
+  dosHnos: "galletas%20dos%20hnos.jfif",
+  valleVerde: "valle%20verde%20yerba.webp",
+  mixMate: "DFA7C897-F584-4E70-A32A-9DF15C92299D.JPG",
+  piperpool: "piper%20pol%20yerba%20con%20boldo.jpg",
+  piperpoolNaranja: "yerba%20piperpol%20naranja.jpg",
+  jugoArandanos: "jugo%20de%20arandanos.webp",
+  macaNegra: "maca%20negra.jfif",
+  macaRoja: "maca%20roja.jpg",
+  vitamaca: "vitamaca.jfif",
+  kalpa: "kalpa.webp",
+  curcuma: "curcuma%C3%A7.JPG",
+  vigoron: "vigoron.JPG",
+  drColon: "dr%20colon.JPG",
+  colageno: "colageno%20femm.JPG",
+  pastaConStevia: "pasta%20de%20mani%20con%20stevia.jfif",
+  pastaNatural: "pasta%20de%20mani%20natural.webp",
+  mielCarpincho: "miel%20de%20carpincho.jfif",
+  aceiteOliva: "aceite%20de%20oliva%20crisari.jpg",
+  salMarina: "sal%20marina%20macrozen%20fina.webp",
+  girasol: "girasol.jfif",
+  sesamoNegro: "sesamo%20negro.jfif",
+  datiles: "datiles.jfif",
+  chia: "semillas%20de%20chia.webp",
+  zapallo: "semillas%20de%20zapallo.jpg",
+  sesamoIntegral: "sesamo%20integral.webp",
+  cacaoAlcalino: "cacao%20alcalino.webp",
+  avenaInstantanea: "avena.png",
+  alfajorLimon: "alfajor%20de%20arroz%20limon.webp",
+  alfajorMarroc: "alfajor%20de%20arroz%20marroc.jpg",
+  almendras: "almendras.webp",
+  nuezExtraLight: "nuez%20extra%20light.jfif",
+  castanasCaju: "casta%C3%B1as%20de%20caju.jfif",
+  bananitasChip: "bananitas%20chip.jfif",
+  bicarbonato: "bicarbonato.avif",
+  harinaAlgarroba: "harina%20de%20algarroba.webp",
+  harinaGarbanzo: "harina%20de%20garbanzo.jfif",
+  harinaAvena: "harina-de-avena.jpg",
+  quinoaRoja: "quinoa%20roja.jfif",
+  quinoaSemilla: "quinoa%20semilla.jfif",
+  sojaTexturizada: "soja%20texturizada%20fina.jpg",
+  tostadasMultisemillas: "tostadas%20de%20arroz.JPG",
+  lecheAlmendrasBiba: "leche%20de%20almendras.JPG",
+  mixDesayuno: "mix%20desayuno.JPG",
+  salHimalaya: "sal%20del%20imalaya.JPG",
+};
+
+// Fotos de stock (Pexels, uso libre) — se usan solo para los productos que todavía
+// no tienen foto real cargada en la carpeta.
+const IMG = {
+  coco: "https://images.pexels.com/photos/7717792/pexels-photo-7717792.jpeg?h=300&w=400&fit=crop",
+  ciruela: "https://images.pexels.com/photos/36647707/pexels-photo-36647707/free-photo-of-assorted-dried-fruits-in-a-white-bowl.jpeg?h=300&w=400&fit=crop",
+  datiles: "https://images.pexels.com/photos/36094809/pexels-photo-36094809/free-photo-of-elegant-glass-bowl-with-dates-on-table.jpeg?h=300&w=400&fit=crop",
+  mani: "https://images.pexels.com/photos/34142354/pexels-photo-34142354/free-photo-of-rustic-display-of-various-nuts-and-grains.jpeg?h=300&w=400&fit=crop",
+  almendras: "https://images.pexels.com/photos/6003907/pexels-photo-6003907.jpeg?h=300&w=400&fit=crop",
+  cacao: "https://images.pexels.com/photos/5078591/pexels-photo-5078591.jpeg?h=300&w=400&fit=crop",
+  mixNueces: "https://images.pexels.com/photos/35846638/pexels-photo-35846638/free-photo-of-assorted-nuts-on-kitchen-countertop.jpeg?h=300&w=400&fit=crop",
+  pasas: "https://images.pexels.com/photos/32567875/pexels-photo-32567875/free-photo-of-organic-mixed-raisins-in-white-bowl.jpeg?h=300&w=400&fit=crop",
+  zapallo: "https://images.pexels.com/photos/1080071/pexels-photo-1080071.jpeg?h=300&w=400&fit=crop",
+  semillas: "https://images.pexels.com/photos/938699/pexels-photo-938699.jpeg?h=300&w=400&fit=crop",
+  granola: "https://images.pexels.com/photos/19318453/pexels-photo-19318453/free-photo-of-cereal-bowl-with-cut-up-fruit.jpeg?h=300&w=400&fit=crop",
+  aritos: "https://images.pexels.com/photos/5893577/pexels-photo-5893577.jpeg?h=300&w=400&fit=crop",
+  avena: "https://images.pexels.com/photos/4725733/pexels-photo-4725733.jpeg?h=300&w=400&fit=crop",
+  harinaInt: "https://images.pexels.com/photos/5441094/pexels-photo-5441094.jpeg?h=300&w=400&fit=crop",
+  arroz: "https://images.pexels.com/photos/8108169/pexels-photo-8108169.jpeg?h=300&w=400&fit=crop",
+  hornear: "https://images.pexels.com/photos/5947521/pexels-photo-5947521.jpeg?h=300&w=400&fit=crop",
+  galletaArroz: "https://images.pexels.com/photos/6103070/pexels-photo-6103070.jpeg?h=300&w=400&fit=crop",
+  yerba: "https://images.pexels.com/photos/13526973/pexels-photo-13526973.jpeg?h=300&w=400&fit=crop",
+  jamaica: "https://images.pexels.com/photos/5987947/pexels-photo-5987947.jpeg?h=300&w=400&fit=crop",
+  manzanilla: "https://images.pexels.com/photos/16027391/pexels-photo-16027391/free-photo-of-flowers-in-bags.jpeg?h=300&w=400&fit=crop",
+  jengibre: "https://images.pexels.com/photos/161556/ginger-plant-asia-rhizome-161556.jpeg?h=300&w=400&fit=crop",
+  suplemento: "https://images.pexels.com/photos/12255178/pexels-photo-12255178.jpeg?h=300&w=400&fit=crop",
+  arandanos: "https://images.pexels.com/photos/11066830/pexels-photo-11066830.jpeg?h=300&w=400&fit=crop",
+  curcuma: "https://images.pexels.com/photos/6104651/pexels-photo-6104651.jpeg?h=300&w=400&fit=crop",
+  colageno: "https://images.pexels.com/photos/15120889/pexels-photo-15120889/free-photo-of-close-up-of-preparing-protein-shake-with-powder.jpeg?h=300&w=400&fit=crop",
+  pastaMani: "https://images.pexels.com/photos/23384624/pexels-photo-23384624/free-photo-of-teaspoon-over-peanut-butter-in-glass-jar.jpeg?h=300&w=400&fit=crop",
+  sesamoIntegral: "https://images.pexels.com/photos/8951051/pexels-photo-8951051.jpeg?h=300&w=400&fit=crop",
+  jengibreMolido: "https://images.pexels.com/photos/6220708/pexels-photo-6220708.jpeg?h=300&w=400&fit=crop",
+  aritosFrutales: "https://images.pexels.com/photos/5893575/pexels-photo-5893575.jpeg?h=300&w=400&fit=crop",
+  pastaSavona: "https://thefoodmarketar.vtexassets.com/arquivos/ids/159667-800-auto?v=638043837485500000&width=800&height=auto&aspect=true",
+};
+
+const productos = [
+  // ⭐ OFERTAS DEL MES: combos promocionales.
+  // Editá acá los combos, su contenido ("combo"), el precio normal y el precio de oferta.
+  {id:59, cat:"⭐ Ofertas del Mes", nombre:"Combo Energético", emoji:"⚡", img:LOCAL.mixEnergetico, combo:["Mix energético 1/2 kilo","Maca roja","Pasta de maní natural 200gr"], precioNormal:9500, opciones:[{unidad:"combo", precio:8500}]},
+  {id:60, cat:"⭐ Ofertas del Mes", nombre:"Combo Desayuno Campestre", emoji:"🥣", img:LOCAL.granolaCinco, combo:["Granola 5 semillas 1/2 kilo","Quinoa pop 100gr","Pasas de uva 100gr"], precioNormal:8750, opciones:[{unidad:"combo", precio:7900}]},
+  {id:61, cat:"⭐ Ofertas del Mes", nombre:"Combo Semillas Vitales", emoji:"🌱", img:LOCAL.mixSemillas, combo:["Chía 100gr","Sésamo blanco 100gr","Mix de semillas 100gr"], precioNormal:3900, opciones:[{unidad:"combo", precio:3400}]},
+  {id:62, cat:"⭐ Ofertas del Mes", nombre:"Combo Vitalidad", emoji:"🌿", img:LOCAL.curcuma, combo:["Cúrcuma, maca y pimienta","Vigoron forte","Jugo de arándanos c/stevia"], precioNormal:7000, opciones:[{unidad:"combo", precio:6200}]},
+
+  // Frutos secos y semillas (con opción de medio kilo con precio menor por gramo)
+  {id:1, cat:"Frutos secos y semillas", nombre:"Coco escamas", emoji:"🥥", img:IMG.coco, opciones:[{unidad:"100gr", precio:1200},{unidad:"1/2 kilo", precio:5400}]},
+  {id:3, cat:"Frutos secos y semillas", nombre:"Ciruela", emoji:"🍇", img:LOCAL.ciruelas, opciones:[{unidad:"100gr", precio:1800},{unidad:"1/2 kilo", precio:8100}]},
+  {id:4, cat:"Frutos secos y semillas", nombre:"Dátiles", emoji:"🌴", img:LOCAL.datiles, opciones:[{unidad:"100gr", precio:1500},{unidad:"1/2 kilo", precio:6750}]},
+  {id:6, cat:"Frutos secos y semillas", nombre:"Maní sin sal", emoji:"🥜", img:LOCAL.maniSinSal, opciones:[{unidad:"100gr", precio:1300},{unidad:"1/2 kilo", precio:5850}]},
+  {id:7, cat:"Frutos secos y semillas", nombre:"Maní con vaina", emoji:"🥜", img:LOCAL.maniConVaina, opciones:[{unidad:"100gr", precio:1200},{unidad:"1/2 kilo", precio:5400}]},
+  {id:8, cat:"Frutos secos y semillas", nombre:"Crocante de maní", emoji:"🥜", img:LOCAL.crocanteMani, opciones:[{unidad:"100gr", precio:1200},{unidad:"1/2 kilo", precio:5400}]},
+  {id:9, cat:"Frutos secos y semillas", nombre:"Cacao amargo alcalino", emoji:"🍫", img:LOCAL.cacaoAlcalino, opciones:[{unidad:"100gr", precio:2100},{unidad:"1/2 kilo", precio:9450}]},
+  {id:10, cat:"Frutos secos y semillas", nombre:"Mix brasilero", emoji:"🥜", img:LOCAL.mixBrasilero, opciones:[{unidad:"100gr", precio:2000},{unidad:"1/2 kilo", precio:9000}]},
+  {id:11, cat:"Frutos secos y semillas", nombre:"Mix premium", emoji:"🥜", img:LOCAL.mixPremium, opciones:[{unidad:"100gr", precio:4500},{unidad:"1/2 kilo", precio:20250}]},
+  {id:12, cat:"Frutos secos y semillas", nombre:"Pasas de uva", emoji:"🍇", img:LOCAL.pasasDeUva, opciones:[{unidad:"100gr", precio:1000},{unidad:"1/2 kilo", precio:4500}]},
+  {id:13, cat:"Frutos secos y semillas", nombre:"Semillas de zapallo", emoji:"🎃", img:LOCAL.zapallo, opciones:[{unidad:"100gr", precio:3000},{unidad:"1/2 kilo", precio:13500}]},
+  {id:14, cat:"Frutos secos y semillas", nombre:"Mix de semillas", emoji:"🌱", img:LOCAL.mixSemillas, opciones:[{unidad:"100gr (2x $2100)", precio:1300},{unidad:"1/2 kilo", precio:5850}]},
+  {id:15, cat:"Frutos secos y semillas", nombre:"Sésamo integral", emoji:"🌱", img:LOCAL.sesamoIntegral, opciones:[{unidad:"100gr (2x $2100)", precio:1300},{unidad:"1/2 kilo", precio:5850}]},
+  {id:16, cat:"Frutos secos y semillas", nombre:"Chía", emoji:"🌱", img:LOCAL.chia, opciones:[{unidad:"100gr (2x $2100)", precio:1300},{unidad:"1/2 kilo", precio:5850}]},
+  {id:17, cat:"Frutos secos y semillas", nombre:"Sésamo blanco", emoji:"🌱", img:LOCAL.sesamoBlanco, opciones:[{unidad:"100gr (2x $2100)", precio:1300},{unidad:"1/2 kilo", precio:5850}]},
+  {id:65, cat:"Frutos secos y semillas", nombre:"Almendras", emoji:"🌰", img:LOCAL.almendras, opciones:[{unidad:"100gr", precio:4200},{unidad:"1/2 kilo", precio:18900}]},
+  {id:66, cat:"Frutos secos y semillas", nombre:"Nuez mariposa extra light", emoji:"🌰", img:LOCAL.nuezExtraLight, opciones:[{unidad:"100gr", precio:3000},{unidad:"1/2 kilo", precio:13500}]},
+  {id:67, cat:"Frutos secos y semillas", nombre:"Castañas de cajú", emoji:"🌰", img:LOCAL.castanasCaju, opciones:[{unidad:"100gr", precio:2700},{unidad:"1/2 kilo", precio:12150}]},
+  {id:68, cat:"Frutos secos y semillas", nombre:"Bananitas chip", emoji:"🍌", img:LOCAL.bananitasChip, opciones:[{unidad:"100gr", precio:2000},{unidad:"1/2 kilo", precio:9000}]},
+  {id:73, cat:"Frutos secos y semillas", nombre:"Quinoa roja", emoji:"🌾", img:LOCAL.quinoaRoja, opciones:[{unidad:"50gr", precio:700}]},
+  {id:74, cat:"Frutos secos y semillas", nombre:"Quinoa", emoji:"🌾", img:LOCAL.quinoaSemilla, opciones:[{unidad:"50gr", precio:700}]},
+
+  // Granolas y cereales (con opción de medio kilo con precio menor por gramo)
+  {id:18, cat:"Granolas y cereales", nombre:"Granola 5 semillas (lino, girasol, sésamo negro, sésamo blanco, chía)", emoji:"🥣", img:LOCAL.granolaCinco, opciones:[{unidad:"100gr", precio:1500},{unidad:"1/2 kilo", precio:6750}]},
+  {id:19, cat:"Granolas y cereales", nombre:"Granola crujiente s/pasas", emoji:"🥣", img:LOCAL.granolaCrujiente, opciones:[{unidad:"100gr", precio:1200},{unidad:"1/2 kilo", precio:5400}]},
+  {id:20, cat:"Granolas y cereales", nombre:"Mix energético", emoji:"🥣", img:LOCAL.mixEnergetico, opciones:[{unidad:"100gr", precio:1400},{unidad:"1/2 kilo", precio:6300}]},
+  {id:21, cat:"Granolas y cereales", nombre:"Almohaditas", emoji:"🥣", img:LOCAL.almohaditas, opciones:[{unidad:"100gr", precio:1400},{unidad:"1/2 kilo", precio:6300}]},
+  {id:22, cat:"Granolas y cereales", nombre:"Aritos de miel y avena", emoji:"🥣", img:LOCAL.aritosMiel, opciones:[{unidad:"100gr", precio:1200},{unidad:"1/2 kilo", precio:5400}]},
+  {id:23, cat:"Granolas y cereales", nombre:"Aritos frutales", emoji:"🥣", img:IMG.aritosFrutales, opciones:[{unidad:"100gr", precio:1200},{unidad:"1/2 kilo", precio:5400}]},
+  {id:24, cat:"Granolas y cereales", nombre:"Bolitas de avena y chocolate", emoji:"🍫", img:LOCAL.bolitasChoco, opciones:[{unidad:"100gr", precio:1200},{unidad:"1/2 kilo", precio:5400}]},
+  {id:25, cat:"Granolas y cereales", nombre:"Copos integrales", emoji:"🌾", img:LOCAL.coposIntegrales, opciones:[{unidad:"100gr", precio:1000},{unidad:"1/2 kilo", precio:4500}]},
+  {id:26, cat:"Granolas y cereales", nombre:"Quinoa pop", emoji:"🌾", img:LOCAL.quinoaPop, opciones:[{unidad:"100gr", precio:1000},{unidad:"1/2 kilo", precio:4500}]},
+  {id:27, cat:"Granolas y cereales", nombre:"Hojuelas s/azúcar", emoji:"🌾", img:LOCAL.hojuelasSAzucar, opciones:[{unidad:"100gr", precio:1000},{unidad:"1/2 kilo", precio:4500}]},
+  {id:28, cat:"Granolas y cereales", nombre:"Fibritos", emoji:"🌾", img:LOCAL.fibritos, opciones:[{unidad:"100gr", precio:1000},{unidad:"1/2 kilo", precio:4500}]},
+  {id:29, cat:"Granolas y cereales", nombre:"Ositos de avena y frutilla", emoji:"🍓", img:LOCAL.ositosFrutilla, opciones:[{unidad:"100gr", precio:1200},{unidad:"1/2 kilo", precio:5400}]},
+  {id:30, cat:"Granolas y cereales", nombre:"Avena instantánea", emoji:"🌾", img:LOCAL.avenaInstantanea, opciones:[{unidad:"1/2 kilo", precio:1500}]},
+  {id:79, cat:"Granolas y cereales", nombre:"Mix desayuno", emoji:"🥣", img:LOCAL.mixDesayuno, combo:["Bananitas","Maní","Nuez","Quinoa","Pasas","Copos","Fibritos","Almendras"], opciones:[{unidad:"100gr", precio:1500}]},
+
+  // Harinas y varios
+  {id:31, cat:"Harinas y varios", nombre:"Harina integral", emoji:"🌾", img:LOCAL.harinaIntegral, opciones:[{unidad:"kg", precio:1200}]},
+  {id:32, cat:"Harinas y varios", nombre:"Arroz Yamaní", emoji:"🍚", img:LOCAL.arrozYamani, opciones:[{unidad:"kg", precio:2600}]},
+  {id:33, cat:"Harinas y varios", nombre:"Polvo de hornear", emoji:"🧁", img:IMG.hornear, opciones:[{unidad:"100gr", precio:1000}]},
+  {id:2, cat:"Harinas y varios", nombre:"Harina de coco", emoji:"🥥", img:LOCAL.harinaCoco, opciones:[{unidad:"100gr", precio:1000},{unidad:"1/2 kilo", precio:4500}]},
+  {id:5, cat:"Harinas y varios", nombre:"Harina de almendras sin piel", emoji:"🌰", img:LOCAL.harinaAlmendras, opciones:[{unidad:"100gr", precio:1100},{unidad:"1/2 kilo", precio:4950}]},
+  {id:69, cat:"Harinas y varios", nombre:"Bicarbonato de sodio", emoji:"🧂", img:LOCAL.bicarbonato, opciones:[{unidad:"100gr", precio:1000}]},
+  {id:70, cat:"Harinas y varios", nombre:"Harina de algarroba", emoji:"🌾", img:LOCAL.harinaAlgarroba, opciones:[{unidad:"1/4 kilo", precio:2000},{unidad:"1/2 kilo", precio:4000},{unidad:"kg", precio:8000}]},
+  {id:71, cat:"Harinas y varios", nombre:"Harina de garbanzo", emoji:"🌾", img:LOCAL.harinaGarbanzo, opciones:[{unidad:"1/4 kilo", precio:700}]},
+  {id:72, cat:"Harinas y varios", nombre:"Harina de avena", emoji:"🌾", img:LOCAL.harinaAvena, opciones:[{unidad:"1/4 kilo", precio:700}]},
+  {id:75, cat:"Harinas y varios", nombre:"Soja texturizada fina", emoji:"🌾", img:LOCAL.sojaTexturizada, opciones:[{unidad:"1/4 kilo", precio:750}]},
+
+  // Galletas y snacks
+  {id:34, cat:"Galletas y snacks", nombre:"Galletas de arroz Yelá", emoji:"🍘", img:LOCAL.yela, opciones:[{unidad:"unidad", precio:1400}]},
+  {id:35, cat:"Galletas y snacks", nombre:"Galleta de arroz Dos Hnos", emoji:"🍘", img:LOCAL.dosHnos, opciones:[{unidad:"unidad", precio:2300}]},
+  {id:63, cat:"Galletas y snacks", nombre:"Alfajor de arroz limón", emoji:"🍘", img:LOCAL.alfajorLimon, opciones:[{unidad:"unidad", precio:900}]},
+  {id:64, cat:"Galletas y snacks", nombre:"Alfajor de arroz marroc", emoji:"🍘", img:LOCAL.alfajorMarroc, opciones:[{unidad:"unidad", precio:900}]},
+  {id:77, cat:"Galletas y snacks", nombre:"Tostadas de arroz multisemillas", emoji:"🍘", img:LOCAL.tostadasMultisemillas, opciones:[{unidad:"unidad", precio:2100}]},
+
+  // Infusiones
+  {id:36, cat:"Infusiones", nombre:"Yerba Valle Verde", emoji:"🧉", img:LOCAL.valleVerde, opciones:[{unidad:"unidad", precio:3000}]},
+  {id:37, cat:"Infusiones", nombre:"Mix mate (bandejita)", emoji:"🍵", img:LOCAL.mixMate, opciones:[{unidad:"unidad", precio:3500}]},
+  {id:76, cat:"Infusiones", nombre:"Yerba piperpol naranja", emoji:"🍵", img:LOCAL.piperpoolNaranja, opciones:[{unidad:"unidad", precio:3200}]},
+  {id:38, cat:"Infusiones", nombre:"Flor de jamaica (bandejita)", emoji:"🌺", img:IMG.jamaica, opciones:[{unidad:"unidad", precio:4000}]},
+  {id:39, cat:"Infusiones", nombre:"Manzanilla pura (bandejita)", emoji:"🌼", img:IMG.manzanilla, opciones:[{unidad:"unidad", precio:3800}]},
+  {id:40, cat:"Infusiones", nombre:"Jengibre molido (bandejita)", emoji:"🫚", img:IMG.jengibreMolido, opciones:[{unidad:"unidad", precio:2000}]},
+
+  // Suplementos y bienestar
+  {id:41, cat:"Suplementos y bienestar", nombre:"Piperpool", emoji:"🌿", img:LOCAL.piperpool, opciones:[{unidad:"unidad", precio:3000}]},
+  {id:42, cat:"Suplementos y bienestar", nombre:"Jugo de arándanos c/stevia", emoji:"🫐", img:LOCAL.jugoArandanos, opciones:[{unidad:"unidad", precio:3000}]},
+  {id:78, cat:"Suplementos y bienestar", nombre:"Leche de almendras BIBA", emoji:"🥛", img:LOCAL.lecheAlmendrasBiba, opciones:[{unidad:"unidad", precio:2200}]},
+  {id:43, cat:"Suplementos y bienestar", nombre:"Maca negra", emoji:"🌿", img:LOCAL.macaNegra, opciones:[{unidad:"unidad", precio:4900}]},
+  {id:44, cat:"Suplementos y bienestar", nombre:"Maca roja", emoji:"🌿", img:LOCAL.macaRoja, opciones:[{unidad:"unidad", precio:2000}]},
+  {id:45, cat:"Suplementos y bienestar", nombre:"Vitamaca", emoji:"🌿", img:LOCAL.vitamaca, opciones:[{unidad:"unidad", precio:6500}]},
+  {id:46, cat:"Suplementos y bienestar", nombre:"Kalpa", emoji:"🌿", img:LOCAL.kalpa, opciones:[{unidad:"unidad", precio:6800}]},
+  {id:47, cat:"Suplementos y bienestar", nombre:"Cúrcuma, maca y pimienta", emoji:"🌿", img:LOCAL.curcuma, opciones:[{unidad:"unidad", precio:2000}]},
+  {id:48, cat:"Suplementos y bienestar", nombre:"Vigoron forte", emoji:"🌿", img:LOCAL.vigoron, opciones:[{unidad:"unidad", precio:2000}]},
+  {id:49, cat:"Suplementos y bienestar", nombre:"Dr. Colon (harina con omega 3, 6 y 9)", emoji:"🌿", img:LOCAL.drColon, opciones:[{unidad:"unidad", precio:2000}]},
+  {id:50, cat:"Suplementos y bienestar", nombre:"Colágeno hidrolizado Femme", emoji:"💊", img:LOCAL.colageno, opciones:[{unidad:"unidad", precio:2000}]},
+
+  // Pastas de maní
+  {id:51, cat:"Pastas de maní", nombre:"Pasta de maní Savona fit natural", emoji:"🥜", img:IMG.pastaSavona, opciones:[{unidad:"unidad", precio:3800}]},
+  {id:52, cat:"Pastas de maní", nombre:"Fit fruto natural con stevia", emoji:"🥜", img:LOCAL.pastaConStevia, opciones:[{unidad:"unidad", precio:5600}]},
+  {id:53, cat:"Pastas de maní", nombre:"Pasta de maní natural (envasada suelto)", emoji:"🥜", img:LOCAL.pastaNatural, opciones:[{unidad:"200gr", precio:1200}]},
+
+  // Otros productos (precio a consultar por WhatsApp)
+  {id:54, cat:"Otros productos (a consultar)", nombre:"Miel de carpincho", emoji:"🍯", img:LOCAL.mielCarpincho, opciones:[{unidad:"a consultar", precio:null}]},
+  {id:55, cat:"Otros productos (a consultar)", nombre:"Aceite de oliva Crisari", emoji:"🫒", img:LOCAL.aceiteOliva, opciones:[{unidad:"a consultar", precio:null}]},
+  {id:56, cat:"Otros productos (a consultar)", nombre:"Sal marina Macrozen fina", emoji:"🧂", img:LOCAL.salMarina, opciones:[{unidad:"a consultar", precio:null}]},
+  {id:57, cat:"Otros productos (a consultar)", nombre:"Girasol (semillas)", emoji:"🌻", img:LOCAL.girasol, opciones:[{unidad:"a consultar", precio:null}]},
+  {id:58, cat:"Otros productos (a consultar)", nombre:"Sésamo negro", emoji:"⚫", img:LOCAL.sesamoNegro, opciones:[{unidad:"a consultar", precio:null}]},
+  {id:80, cat:"Otros productos (a consultar)", nombre:"Sal rosa del Himalaya fina (250gr)", emoji:"🧂", img:LOCAL.salHimalaya, opciones:[{unidad:"a consultar", precio:null}]},
+];
+
+// Número de WhatsApp del negocio (formato: código país + área + número, sin + ni espacios)
+const WHATSAPP_NUMERO = "5491157017714";
+
+// ---------- RENDER DE CATÁLOGO ----------
+// Foto de portada de cada categoría (banner). Podés cambiarlas por otra foto de la carpeta.
+const CATEGORIA_FOTOS = {
+  "⭐ Ofertas del Mes": "mix%20energetico%20oran.webp",
+  "Frutos secos y semillas": "mix%20brasilero.webp",
+  "Granolas y cereales": "granola%20crujiente.webp",
+  "Harinas y varios": "harina%20integral.jpg",
+  "Galletas y snacks": "galletas%20dos%20hnos.jfif",
+  "Infusiones": "valle%20verde%20yerba.webp",
+  "Suplementos y bienestar": "vitamaca.jfif",
+  "Pastas de maní": "pasta%20de%20mani%20natural.webp",
+  "Otros productos (a consultar)": "aceite%20de%20oliva%20crisari.jpg",
+};
+
+const categorias = [...new Set(productos.map(p => p.cat))];
+const main = document.getElementById("main");
+
+function toggleCategoria(btn){
+  const sec = btn.parentElement;
+  sec.classList.toggle("abierta");
+  btn.querySelector(".cat-toggle").textContent = sec.classList.contains("abierta") ? "−" : "+";
+}
+
+categorias.forEach((cat, catIdx) => {
+  const slug = cat.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  const abierta = catIdx === 0; // la primera categoría (Ofertas) arranca desplegada
+
+  const section = document.createElement("section");
+  section.className = "categoria reveal" + (abierta ? " abierta" : "");
+  section.id = slug;
+  const foto = CATEGORIA_FOTOS[cat] || "";
+  section.innerHTML = `
+    <button class="cat-banner" style="background-image:url('${foto}')" onclick="toggleCategoria(this)">
+      <h2>${cat}</h2>
+      <span class="cat-toggle">${abierta ? "−" : "+"}</span>
+    </button>
+    <div class="grid" id="grid-${slug}"></div>`;
+  main.appendChild(section);
+
+  const grid = section.querySelector(".grid");
+  productos.filter(p => p.cat === cat).forEach((p, idx) => {
+    const card = document.createElement("div");
+    card.className = "card reveal";
+    if(p.precioNormal) card.classList.add("card-oferta");
+    card.style.setProperty("--i", idx % 8);
+    const sinPrecio = p.opciones.length === 1 && p.opciones[0].precio === null;
+    const multiplesOpciones = p.opciones.length > 1;
+    const selectorHtml = sinPrecio
+      ? `<div class="precio">Consultar precio</div>`
+      : multiplesOpciones
+      ? `<select class="tamano-select" id="sel-${p.id}">
+          ${p.opciones.map((o, i) => `<option value="${i}">${o.unidad} — $${o.precio.toLocaleString("es-AR")}</option>`).join("")}
+        </select>`
+      : `<div class="precio">$${p.opciones[0].precio.toLocaleString("es-AR")}</div>
+         <div class="unidad">${p.opciones[0].unidad}</div>`;
+    const botonHtml = sinPrecio
+      ? `<button onclick="consultarProducto('${p.nombre.replace(/'/g, "\\'")}')">Consultar por WhatsApp</button>`
+      : `<button onclick="agregarAlCarrito(${p.id}, this)">Agregar al carrito</button>`;
+    const comboHtml = p.combo
+      ? `<ul class="combo-lista"><li>Contiene: ${p.combo[0]}</li>${p.combo.slice(1).map(x => `<li>${x}</li>`).join("")}</ul>`
+      : "";
+    const ofertaHtml = p.precioNormal
+      ? `<div><span class="precio-normal">Antes: $${p.precioNormal.toLocaleString("es-AR")}</span><span class="ahorro">Ahorrás $${(p.precioNormal - p.opciones[0].precio).toLocaleString("es-AR")}</span></div>`
+      : "";
+    card.innerHTML = `
+      <div class="foto">
+        <img src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.parentElement.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;font-size:2.5rem;\\'>${p.emoji}</div>'">
+        ${p.precioNormal ? '<div class="oferta-badge">Oferta</div>' : ""}
+      </div>
+      <div class="card-info">
+        <h3>${p.emoji} ${p.nombre}</h3>
+        ${comboHtml}
+        ${selectorHtml}
+        ${ofertaHtml}
+      </div>
+      <div class="card-action">
+        ${botonHtml}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+});
+
+// ---------- CARRITO ----------
+let carrito = {}; // { "id_opcionIndex": cantidad }
+
+function agregarAlCarrito(id, btn){
+  const p = productos.find(x => x.id === id);
+  const selectEl = document.getElementById(`sel-${id}`);
+  const opIdx = selectEl ? parseInt(selectEl.value) : 0;
+  const key = `${id}_${opIdx}`;
+  carrito[key] = (carrito[key] || 0) + 1;
+  actualizarCarrito();
+  if(btn){
+    btn.textContent = "Agregado ✓";
+    btn.classList.add("added");
+    setTimeout(() => {
+      btn.textContent = "Agregar al carrito";
+      btn.classList.remove("added");
+    }, 900);
+  }
+}
+
+function cambiarCantidad(key, delta){
+  if(!carrito[key]) return;
+  carrito[key] += delta;
+  if(carrito[key] <= 0) delete carrito[key];
+  actualizarCarrito();
+}
+
+function quitarDelCarrito(key){
+  delete carrito[key];
+  actualizarCarrito();
+}
+
+function obtenerProductoYOpcion(key){
+  const [id, opIdx] = key.split("_").map(Number);
+  const p = productos.find(x => x.id === id);
+  const o = p.opciones[opIdx];
+  return {p, o};
+}
+
+function actualizarCarrito(){
+  const itemsDiv = document.getElementById("cart-items");
+  const keys = Object.keys(carrito);
+  const totalCount = keys.reduce((sum, k) => sum + carrito[k], 0);
+  document.getElementById("cart-count").textContent = totalCount;
+
+  if(keys.length === 0){
+    itemsDiv.innerHTML = `<p id="cart-empty">Todavía no agregaste productos.</p>`;
+    document.getElementById("cart-total-amount").textContent = "$0";
+    document.getElementById("wsp-total").textContent = "$0";
+    document.getElementById("whatsapp-btn").disabled = true;
+    return;
+  }
+
+  let total = 0;
+  itemsDiv.innerHTML = keys.map(key => {
+    const {p, o} = obtenerProductoYOpcion(key);
+    const cant = carrito[key];
+    const subtotal = o.precio * cant;
+    total += subtotal;
+    return `
+      <div class="cart-item">
+        <div class="cart-item-info">
+          <strong>${p.emoji} ${p.nombre}</strong>
+          <span>$${o.precio.toLocaleString("es-AR")} x ${o.unidad}</span>
+        </div>
+        <div class="cart-qty">
+          <button onclick="cambiarCantidad('${key}', -1)">−</button>
+          <span>${cant}</span>
+          <button onclick="cambiarCantidad('${key}', 1)">+</button>
+        </div>
+        <button class="cart-item-remove" onclick="quitarDelCarrito('${key}')">🗑️</button>
+      </div>
+    `;
+  }).join("");
+
+  document.getElementById("cart-total-amount").textContent = "$" + total.toLocaleString("es-AR");
+  document.getElementById("wsp-total").textContent = "$" + total.toLocaleString("es-AR");
+  document.getElementById("whatsapp-btn").disabled = false;
+}
+
+function consultarProducto(nombre){
+  const mensaje = `Hola! Quisiera consultar precio y disponibilidad de: ${nombre}`;
+  const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensaje)}`;
+  window.open(url, "_blank");
+}
+
+function toggleCart(abrir){
+  document.getElementById("cart-overlay").style.display = abrir ? "block" : "none";
+  document.getElementById("cart-panel").style.display = abrir ? "flex" : "none";
+}
+document.getElementById("cart-panel").style.display = "none";
+
+function enviarPedidoWhatsApp(){
+  const keys = Object.keys(carrito);
+  if(keys.length === 0) return;
+
+  let mensaje = "🌿 *Pedido - Herboristería Todo Suelto* 🌿\n\n";
+  let total = 0;
+  keys.forEach(key => {
+    const {p, o} = obtenerProductoYOpcion(key);
+    const cant = carrito[key];
+    const subtotal = o.precio * cant;
+    total += subtotal;
+    mensaje += `• ${p.nombre} (${o.unidad}) x${cant} = $${subtotal.toLocaleString("es-AR")}\n`;
+  });
+  mensaje += `\n*TOTAL: $${total.toLocaleString("es-AR")}*\n\n`;
+  mensaje += "Por favor confirmar disponibilidad y forma de pago. ¡Gracias!";
+
+  const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensaje)}`;
+  window.open(url, "_blank");
+}
+
+// ---------- EFECTO: LLUVIA LENTA DE SEMILLAS AL HACER CLICK ----------
+const PARTICULAS = ["🌾", "🌻", "🌰", "🥜", "🫘", "🌱", "🍂"];
+
+function crearSemillas(x, y){
+  const cantidad = 8 + Math.floor(Math.random() * 5);
+  for(let i = 0; i < cantidad; i++){
+    const el = document.createElement("span");
+    el.className = "seed-fall";
+    const semilla = document.createElement("span");
+    semilla.className = "seed-sway";
+    semilla.textContent = PARTICULAS[Math.floor(Math.random() * PARTICULAS.length)];
+    el.appendChild(semilla);
+
+    const dy = window.innerHeight - y + 80 + Math.random() * 120;
+    const duracion = 3.5 + Math.random() * 3;        // caída lenta: 3.5 a 6.5 segundos
+    const vaiven = 14 + Math.random() * 28;          // balanceo lateral tipo hoja
+    const duracionVaiven = 1.4 + Math.random() * 1.4;
+    const rot = 12 + Math.random() * 30;
+    const tamano = 14 + Math.random() * 13;
+
+    el.style.left = (x + (Math.random() - 0.5) * 80) + "px";
+    el.style.top = (y - 10) + "px";
+    el.style.fontSize = tamano + "px";
+    el.style.setProperty("--dy", dy + "px");
+    el.style.setProperty("--sway", vaiven + "px");
+    el.style.setProperty("--rot", rot + "deg");
+    el.style.animationDuration = duracion + "s";
+    semilla.style.animationDuration = duracionVaiven + "s";
+    semilla.style.animationDelay = (-Math.random() * duracionVaiven) + "s";
+
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), duracion * 1000 + 100);
+  }
+}
+
+document.addEventListener("click", (e) => {
+  crearSemillas(e.clientX, e.clientY);
+});
+
+// ---------- ANIMACIÓN DE APARICIÓN AL HACER SCROLL ----------
+const observador = new IntersectionObserver((entradas) => {
+  entradas.forEach(en => {
+    if(en.isIntersecting){
+      en.target.classList.add("visible");
+      observador.unobserve(en.target);
+    }
+  });
+}, {threshold: 0.08, rootMargin: "0px 0px -30px 0px"});
+document.querySelectorAll(".reveal").forEach(el => observador.observe(el));
+</script>
+
+</body>
+</html>
