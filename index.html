@@ -44,7 +44,7 @@
     animation: bajar .5s ease both;
   }
   @keyframes bajar{
-    from{ transform: translateY(-100%); }
+    frof{ transform: translateY(-100%); }
     to{ transform: translateY(0); }
   }
   .logo-circle{
@@ -129,6 +129,40 @@
     font-size: .9rem;
     letter-spacing: .5px;
     text-transform: uppercase;
+  }
+
+  /* ---------- Buscador ---------- */
+  .buscador{
+    position: relative;
+    margin-bottom: 16px;
+  }
+  .buscador input{
+    width: 100%;
+    font-family: var(--sans);
+    font-size: 1rem;
+    padding: 12px 40px 12px 16px;
+    border: 2px solid #e2ddd4;
+    border-radius: 999px;
+    outline: none;
+    color: var(--texto);
+    transition: border-color .2s;
+  }
+  .buscador input:focus{
+    border-color: var(--naranja-claro);
+  }
+  .buscador::after{
+    content: "🔎";
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    pointer-events: none;
+  }
+  #sin-resultados{
+    text-align: center;
+    color: #999;
+    padding: 24px 0;
   }
 
   /* ---------- Categorías: banner con acordeón ---------- */
@@ -353,7 +387,7 @@
     background: #f8bd82;
   }
   @keyframes subir{
-    from{ transform: translateX(-50%) translateY(120%); }
+    frof{ transform: translateX(-50%) translateY(120%); }
     to{ transform: translateX(-50%) translateY(0); }
   }
   #wsp-bar .total-pill{
@@ -575,6 +609,10 @@
     <strong>HERBORISTERÍA · PRODUCTOS A GRANEL</strong>
     <span>La mejor variedad al mejor precio</span>
   </div>
+  <div class="buscador">
+    <input type="text" id="buscador-input" placeholder="Buscar producto por nombre..." oninput="filtrarProductos(this.value)" autocomplete="off">
+  </div>
+  <p id="sin-resultados" style="display:none">No encontramos ningún producto con ese nombre.</p>
 </main>
 
 <button id="wsp-bar" onclick="toggleCart(true)">
@@ -824,6 +862,104 @@ const productos = [
   {id:55, cat:"Otros productos (a consultar)", nombre:"Aceite de oliva Crisari", emoji:"🫒", img:LOCAL.aceiteOliva, opciones:[{unidad:"a consultar", precio:null}]},
   {id:57, cat:"Otros productos (a consultar)", nombre:"Girasol (semillas)", emoji:"🌻", img:LOCAL.girasol, opciones:[{unidad:"a consultar", precio:null}]},
   {id:58, cat:"Otros productos (a consultar)", nombre:"Sésamo negro", emoji:"⚫", img:LOCAL.sesamoNegro, opciones:[{unidad:"a consultar", precio:null}]},
+
+  // ---- Productos nuevos (compra de julio/agosto 2026) — precio = costo + 60% de margen ----
+  // Todavía no tienen foto propia cargada: se muestra el emoji hasta que subas una imagen.
+  {id:100, cat:"Frutos secos y semillas", nombre:"Maní tostado Runner", emoji:"🥜", img:"", opciones:[{unidad:"1/4 kilo", precio:1350},{unidad:"1/2 kilo", precio:2700},{unidad:"kg", precio:5400}]},
+  {id:101, cat:"Frutos secos y semillas", nombre:"Cumaná mix de frutos secos s/pasas", emoji:"🥜", img:"", opciones:[{unidad:"1/4 kilo", precio:6550},{unidad:"1/2 kilo", precio:13050},{unidad:"kg", precio:26150}]},
+  {id:102, cat:"Granolas y cereales", nombre:"Nutri copita de chocolate", emoji:"🍫", img:"", opciones:[{unidad:"1/4 kilo", precio:2950},{unidad:"1/2 kilo", precio:5950},{unidad:"kg", precio:11900}]},
+  {id:103, cat:"Granolas y cereales", nombre:"Lasfor bocaditos de limón", emoji:"🍋", img:"", opciones:[{unidad:"1/4 kilo", precio:2950},{unidad:"1/2 kilo", precio:5900},{unidad:"kg", precio:11800}]},
+  {id:104, cat:"Granolas y cereales", nombre:"Lasfor bocaditos de chocolate", emoji:"🍫", img:"", opciones:[{unidad:"1/4 kilo", precio:3300},{unidad:"1/2 kilo", precio:6600},{unidad:"kg", precio:13150}]},
+  {id:105, cat:"Granolas y cereales", nombre:"El Peoncito mix salado", emoji:"🥨", img:"", opciones:[{unidad:"1/4 kilo", precio:4250},{unidad:"1/2 kilo", precio:8500},{unidad:"kg", precio:17050}]},
+  {id:106, cat:"Granolas y cereales", nombre:"Murke pepas integrales", emoji:"🌾", img:"", opciones:[{unidad:"1/4 kilo", precio:3350},{unidad:"1/2 kilo", precio:6700},{unidad:"kg", precio:13450}]},
+  {id:107, cat:"Granolas y cereales", nombre:"Granola crujiente c/pasas Orann", emoji:"🥣", img:"", opciones:[{unidad:"1/4 kilo", precio:3000},{unidad:"1/2 kilo", precio:5950},{unidad:"kg", precio:11900}]},
+  {id:108, cat:"Granolas y cereales", nombre:"Barritas mix energético Orann", emoji:"🍫", img:"", opciones:[{unidad:"1/4 kilo", precio:5100},{unidad:"1/2 kilo", precio:10200},{unidad:"kg", precio:20400}]},
+  {id:109, cat:"Granolas y cereales", nombre:"Risky mini's con semillas", emoji:"🥣", img:"", opciones:[{unidad:"unidad 100gr", precio:1550}]},
+  {id:110, cat:"Granolas y cereales", nombre:"Soy arroz natural", emoji:"🍘", img:"", opciones:[{unidad:"unidad 300gr", precio:3400}]},
+  {id:111, cat:"Granolas y cereales", nombre:"Nutresan aritos bañados", emoji:"🥣", img:"", opciones:[{unidad:"unidad 250gr", precio:3550}]},
+  {id:112, cat:"Granolas y cereales", nombre:"Mini grisines Carilo", emoji:"🥖", img:"", opciones:[{unidad:"unidad 100gr", precio:2550}]},
+  {id:113, cat:"Harinas y varios", nombre:"Harina de soja natural", emoji:"🌾", img:"", opciones:[{unidad:"1/4 kilo", precio:700},{unidad:"1/2 kilo", precio:1350},{unidad:"kg", precio:2750}]},
+  {id:114, cat:"Harinas y varios", nombre:"Harina de arvejas", emoji:"🌾", img:"", opciones:[{unidad:"1/4 kilo", precio:450},{unidad:"1/2 kilo", precio:950},{unidad:"kg", precio:1850}]},
+  {id:115, cat:"Harinas y varios", nombre:"Comino extra (molido)", emoji:"🧂", img:"", opciones:[{unidad:"100gr", precio:1000}]},
+  {id:116, cat:"Harinas y varios", nombre:"Ají molido", emoji:"🌶️", img:"", opciones:[{unidad:"100gr", precio:1050}]},
+  {id:117, cat:"Harinas y varios", nombre:"Eritritol (edulcorante)", emoji:"🍬", img:"", opciones:[{unidad:"1/4 kilo", precio:12300},{unidad:"1/2 kilo", precio:24600},{unidad:"kg", precio:49150}]},
+  {id:118, cat:"Harinas y varios", nombre:"Pimienta blanca extra (250gr)", emoji:"🧂", img:"", opciones:[{unidad:"unidad", precio:5300}]},
+  {id:119, cat:"Harinas y varios", nombre:"Doña Mag stevia en polvo (220gr)", emoji:"🍃", img:"", opciones:[{unidad:"unidad", precio:7500}]},
+  {id:120, cat:"Galletas y snacks", nombre:"Obleas Santa María frutilla", emoji:"🍪", img:"", opciones:[{unidad:"unidad 90gr", precio:2750}]},
+  {id:121, cat:"Galletas y snacks", nombre:"Obleas Santa María limón", emoji:"🍪", img:"", opciones:[{unidad:"unidad 90gr", precio:2750}]},
+  {id:122, cat:"Galletas y snacks", nombre:"Obleas Santa María chocolate", emoji:"🍪", img:"", opciones:[{unidad:"unidad 95gr", precio:2750}]},
+  {id:123, cat:"Galletas y snacks", nombre:"Pita chips queso crema y cebolla Lennys", emoji:"🍟", img:"", opciones:[{unidad:"unidad 150gr", precio:4050}]},
+  {id:124, cat:"Galletas y snacks", nombre:"Tallarines Betic (varios gustos)", emoji:"🍝", img:"", opciones:[{unidad:"unidad", precio:3500}]},
+  {id:125, cat:"Galletas y snacks", nombre:"Galletitas cacao y maní Celienergy", emoji:"🍪", img:"", opciones:[{unidad:"unidad 130gr", precio:3250}]},
+  {id:126, cat:"Galletas y snacks", nombre:"Polvorones s/azúcar sabor algarroba Vivamas", emoji:"🍪", img:"", opciones:[{unidad:"unidad 200gr", precio:4850}]},
+  {id:127, cat:"Galletas y snacks", nombre:"Pepas de algarroba y frambuesa Vivamas", emoji:"🍪", img:"", opciones:[{unidad:"unidad 250gr", precio:5000}]},
+  {id:128, cat:"Galletas y snacks", nombre:"Alfajor de nuez Celienergy", emoji:"🍫", img:"", opciones:[{unidad:"unidad", precio:2250}]},
+  {id:129, cat:"Galletas y snacks", nombre:"Alfajor de algarroba s/azúcar Epuyen", emoji:"🍫", img:"", opciones:[{unidad:"unidad", precio:2900}]},
+  {id:130, cat:"Infusiones", nombre:"Té verde matcha (50gr)", emoji:"🍵", img:"", opciones:[{unidad:"unidad", precio:3950}]},
+  {id:131, cat:"Infusiones", nombre:"Yerba Kalena", emoji:"🧉", img:"", opciones:[{unidad:"unidad 500gr", precio:5800}]},
+  {id:132, cat:"Infusiones", nombre:"Yerba Kalena despalada", emoji:"🧉", img:"", opciones:[{unidad:"unidad 500gr", precio:7050}]},
+  {id:133, cat:"Suplementos y bienestar", nombre:"Ginkgo biloba (hierba medicinal, 250gr)", emoji:"🌿", img:"", opciones:[{unidad:"unidad", precio:9650}]},
+  {id:134, cat:"Suplementos y bienestar", nombre:"Dulkre mate original (250ml)", emoji:"🌿", img:"", opciones:[{unidad:"unidad", precio:4550}]},
+  {id:135, cat:"Suplementos y bienestar", nombre:"Aceite de orégano Origanum 80%", emoji:"🌿", img:"", opciones:[{unidad:"unidad 30ml", precio:21600}]},
+  {id:136, cat:"Suplementos y bienestar", nombre:"Aceite de vitamina C Royal", emoji:"🍊", img:"", opciones:[{unidad:"unidad 10ml", precio:9550}]},
+  {id:137, cat:"Suplementos y bienestar", nombre:"Aceite de vitamina C Uruguay 13%", emoji:"🍊", img:"", opciones:[{unidad:"unidad 15ml", precio:14850}]},
+  {id:138, cat:"Suplementos y bienestar", nombre:"Miel de carpincho Melipona (eucalipto y limón)", emoji:"🍯", img:"", opciones:[{unidad:"unidad", precio:4250}]},
+  {id:139, cat:"Suplementos y bienestar", nombre:"Cachafaz orgánica avena y miel", emoji:"🍯", img:"", opciones:[{unidad:"unidad 170gr", precio:3300}]},
+  {id:140, cat:"Suplementos y bienestar", nombre:"Cachafaz orgánica cacao y miel", emoji:"🍯", img:"", opciones:[{unidad:"unidad 170gr", precio:3300}]},
+  {id:141, cat:"Suplementos y bienestar", nombre:"Ghee manteca clarificada Sri", emoji:"🧈", img:"", opciones:[{unidad:"unidad 150gr", precio:9150}]},
+  {id:142, cat:"Suplementos y bienestar", nombre:"Café de algarroba Dicomere", emoji:"☕", img:"", opciones:[{unidad:"unidad 200gr", precio:6200}]},
+  {id:143, cat:"Suplementos y bienestar", nombre:"Jugo de arándano c/sucralosa Fitoplus", emoji:"🫐", img:"", opciones:[{unidad:"unidad 1.5lts", precio:3400}]},
+  {id:144, cat:"Suplementos y bienestar", nombre:"Harina de vino (orujo de uva, 50gr)", emoji:"🍇", img:"", opciones:[{unidad:"unidad", precio:2300}]},
+  {id:145, cat:"Suplementos y bienestar", nombre:"Mermelada damasco s/azúcar Orieta", emoji:"🍑", img:"", opciones:[{unidad:"unidad 340gr", precio:4950}]},
+  {id:146, cat:"Suplementos y bienestar", nombre:"Mermelada frutilla c/stevia Cuarto Crec", emoji:"🍓", img:"", opciones:[{unidad:"unidad 280gr", precio:6200}]},
+  {id:147, cat:"Suplementos y bienestar", nombre:"Mermelada durazno c/stevia Cuarto Crec", emoji:"🍑", img:"", opciones:[{unidad:"unidad 280gr", precio:5600}]},
+  {id:148, cat:"Suplementos y bienestar", nombre:"Mermelada arándano c/stevia Cuarto Crec", emoji:"🫐", img:"", opciones:[{unidad:"unidad 280gr", precio:6200}]},
+
+  // ---- Productos nuevos (pedido ALLDIET agosto 2026) — precio = costo + 60% de margen ----
+  // Nota: del presupuesto grande de ALLDIET dejé afuera un grupo chico de sales D.Singh
+  // y postres Dulri porque los precios de esas filas no se podían emparejar con certeza
+  // en la foto (quedan pendientes de confirmar con una foto más derecha).
+  {id:200, cat:"Harinas y varios", nombre:"Harina de almendras con piel", emoji:"🌰", img:"", opciones:[{unidad:"1/4 kilo", precio:2350},{unidad:"1/2 kilo", precio:4650},{unidad:"kg", precio:9300}]},
+  {id:201, cat:"Granolas y cereales", nombre:"Chips de chocolate negro semiamargo", emoji:"🍫", img:"", opciones:[{unidad:"1/4 kilo", precio:3900},{unidad:"1/2 kilo", precio:7800},{unidad:"kg", precio:15600}]},
+  {id:202, cat:"Granolas y cereales", nombre:"Almohaditas rellenas de avellana Lasfor", emoji:"🍪", img:"", opciones:[{unidad:"1/4 kilo", precio:3350},{unidad:"1/2 kilo", precio:6650},{unidad:"kg", precio:13300}]},
+  {id:203, cat:"Granolas y cereales", nombre:"Almohaditas rellenas de frutilla Lasfor", emoji:"🍪", img:"", opciones:[{unidad:"1/4 kilo", precio:3350},{unidad:"1/2 kilo", precio:6650},{unidad:"kg", precio:13300}]},
+  {id:204, cat:"Harinas y varios", nombre:"Harina de arroz", emoji:"🌾", img:"", opciones:[{unidad:"1/4 kilo", precio:800},{unidad:"1/2 kilo", precio:1650},{unidad:"kg", precio:3250}]},
+  {id:205, cat:"Harinas y varios", nombre:"Harina paraguaya", emoji:"🌾", img:"", opciones:[{unidad:"1/4 kilo", precio:550},{unidad:"1/2 kilo", precio:1100},{unidad:"kg", precio:2150}]},
+  {id:206, cat:"Granolas y cereales", nombre:"Granola light Orann", emoji:"🥣", img:"", opciones:[{unidad:"1/4 kilo", precio:1750},{unidad:"1/2 kilo", precio:3500},{unidad:"kg", precio:6950}]},
+  {id:207, cat:"Galletas y snacks", nombre:"Barrita de chocolate amargo 70% (17gr)", emoji:"🍫", img:"", opciones:[{unidad:"unidad", precio:1800}]},
+  {id:208, cat:"Galletas y snacks", nombre:"Alfajor con stevia Crelech", emoji:"🍫", img:"", opciones:[{unidad:"unidad", precio:1350}]},
+  {id:209, cat:"Galletas y snacks", nombre:"Conitos con stevia Crelech", emoji:"🍪", img:"", opciones:[{unidad:"unidad", precio:1400}]},
+  {id:210, cat:"Galletas y snacks", nombre:"Alfajor sin TACC chocolate Lulemu", emoji:"🍫", img:"", opciones:[{unidad:"unidad", precio:1100}]},
+  {id:211, cat:"Galletas y snacks", nombre:"Alfajor sin TACC limón Lulemu", emoji:"🍫", img:"", opciones:[{unidad:"unidad", precio:1100}]},
+  {id:212, cat:"Galletas y snacks", nombre:"Chiqui c/stevia algarroba y maní (190gr)", emoji:"🍪", img:"", opciones:[{unidad:"unidad", precio:2550}]},
+  {id:213, cat:"Galletas y snacks", nombre:"Chiqui c/stevia cacao y nueces (190gr)", emoji:"🍪", img:"", opciones:[{unidad:"unidad", precio:2550}]},
+  {id:214, cat:"Galletas y snacks", nombre:"Chiqui light chips de chocolate (190gr)", emoji:"🍪", img:"", opciones:[{unidad:"unidad", precio:2300}]},
+  {id:215, cat:"Galletas y snacks", nombre:"Crelech galletitas s/azúcar naranja (180gr)", emoji:"🍪", img:"", opciones:[{unidad:"unidad", precio:2700}]},
+  {id:216, cat:"Galletas y snacks", nombre:"Crelech galletitas s/azúcar vainilla (180gr)", emoji:"🍪", img:"", opciones:[{unidad:"unidad", precio:2700}]},
+  {id:217, cat:"Galletas y snacks", nombre:"Crelech galletitas s/azúcar coco (180gr)", emoji:"🍪", img:"", opciones:[{unidad:"unidad", precio:2700}]},
+  {id:218, cat:"Harinas y varios", nombre:"Harina de trigo sarraceno s/TACC orgánica Dicomere (450gr)", emoji:"🌾", img:"", opciones:[{unidad:"unidad", precio:4650}]},
+  {id:219, cat:"Suplementos y bienestar", nombre:"Crema chantilly con stevia Dulri (30g)", emoji:"🍰", img:"", opciones:[{unidad:"unidad", precio:3900}]},
+  {id:220, cat:"Suplementos y bienestar", nombre:"Gelatina frutas tropicales con stevia Dulri (25g)", emoji:"🍇", img:"", opciones:[{unidad:"unidad", precio:4750}]},
+  {id:221, cat:"Suplementos y bienestar", nombre:"Gelatina frutilla con stevia Dulri (25g)", emoji:"🍓", img:"", opciones:[{unidad:"unidad", precio:4750}]},
+  {id:222, cat:"Suplementos y bienestar", nombre:"Stevia en sobres Dulri (caja x100)", emoji:"🍃", img:"", opciones:[{unidad:"unidad", precio:5650}]},
+  {id:223, cat:"Suplementos y bienestar", nombre:"Stevia en sobres Dulri (caja x50)", emoji:"🍃", img:"", opciones:[{unidad:"unidad", precio:3700}]},
+  {id:224, cat:"Suplementos y bienestar", nombre:"Stevia cristalizada (eritritol) Dulri (caja x30)", emoji:"🍃", img:"", opciones:[{unidad:"unidad", precio:6550}]},
+  {id:225, cat:"Suplementos y bienestar", nombre:"Stevia líquida Dulri (120cc)", emoji:"🍃", img:"", opciones:[{unidad:"unidad", precio:6450}]},
+  {id:226, cat:"Suplementos y bienestar", nombre:"Hummus en polvo Sana Mundi (100gr)", emoji:"🧆", img:"", opciones:[{unidad:"unidad", precio:2300}]},
+  {id:227, cat:"Harinas y varios", nombre:"Fideos Betic sabor espinaca (300gr)", emoji:"🍝", img:"", opciones:[{unidad:"unidad", precio:3650}]},
+  {id:228, cat:"Harinas y varios", nombre:"Fideos Betic sabor albahaca (300gr)", emoji:"🍝", img:"", opciones:[{unidad:"unidad", precio:3650}]},
+  {id:229, cat:"Harinas y varios", nombre:"Fideos Betic sabor integral (300gr)", emoji:"🍝", img:"", opciones:[{unidad:"unidad", precio:3650}]},
+  {id:230, cat:"Harinas y varios", nombre:"Fideos Betic sabor morrón (300gr)", emoji:"🍝", img:"", opciones:[{unidad:"unidad", precio:3650}]},
+  {id:231, cat:"Galletas y snacks", nombre:"Tableta de chocolate con leche de coco con stevia Copani", emoji:"🍫", img:"", opciones:[{unidad:"unidad", precio:7150}]},
+  {id:232, cat:"Suplementos y bienestar", nombre:"Stevia líquida Jual (125ml)", emoji:"🍃", img:"", opciones:[{unidad:"unidad", precio:5550}]},
+  {id:233, cat:"Granolas y cereales", nombre:"Surtido crocante Orann (200gr)", emoji:"🥣", img:"", opciones:[{unidad:"unidad", precio:3800}]},
+  {id:234, cat:"Suplementos y bienestar", nombre:"Dulce de batata sin azúcar Orieta (400gr)", emoji:"🍠", img:"", opciones:[{unidad:"unidad", precio:4350}]},
+  {id:235, cat:"Suplementos y bienestar", nombre:"Dulce de membrillo sin azúcar Orieta (400gr)", emoji:"🍐", img:"", opciones:[{unidad:"unidad", precio:6000}]},
+  {id:236, cat:"Suplementos y bienestar", nombre:"Mermelada damasco Orieta (340gr)", emoji:"🍑", img:"", opciones:[{unidad:"unidad", precio:4800}]},
+  {id:237, cat:"Suplementos y bienestar", nombre:"Mermelada durazno Orieta (340gr)", emoji:"🍑", img:"", opciones:[{unidad:"unidad", precio:4800}]},
+  {id:238, cat:"Suplementos y bienestar", nombre:"Mermelada frutilla Orieta (340gr)", emoji:"🍓", img:"", opciones:[{unidad:"unidad", precio:6650}]},
+  {id:239, cat:"Suplementos y bienestar", nombre:"Tintura madre compuesta 301 Relax (60cc)", emoji:"🌿", img:"", opciones:[{unidad:"unidad", precio:9500}]},
+  {id:240, cat:"Suplementos y bienestar", nombre:"Tintura Oasis N°38 de valeriana", emoji:"🌿", img:"", opciones:[{unidad:"unidad", precio:7550}]},
 ];
 
 // Número de WhatsApp del negocio (formato: código país + área + número, sin + ni espacios)
@@ -852,6 +988,53 @@ function toggleCategoria(btn){
   btn.querySelector(".cat-toggle").textContent = sec.classList.contains("abierta") ? "−" : "+";
 }
 
+// ---------- BUSCADOR ----------
+function normalizarTexto(txt){
+  return txt.toString().normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+}
+
+function filtrarProductos(query){
+  const q = normalizarTexto(query);
+  const sinResultados = document.getElementById("sin-resultados");
+  let huboMatchGlobal = false;
+
+  document.querySelectorAll(".categoria").forEach(section => {
+    const cards = section.querySelectorAll(".card");
+    let matchesEnCategoria = 0;
+
+    cards.forEach(card => {
+      const coincide = q === "" || card.dataset.nombre.includes(q);
+      card.style.display = coincide ? "" : "none";
+      if(coincide) matchesEnCategoria++;
+    });
+
+    if(q === ""){
+      // Sin búsqueda activa: mostrar todas las categorías y dejar solo la primera abierta.
+      section.style.display = "";
+    } else if(matchesEnCategoria > 0){
+      section.style.display = "";
+      section.classList.add("abierta");
+      const toggle = section.querySelector(".cat-toggle");
+      if(toggle) toggle.textContent = "−";
+      huboMatchGlobal = true;
+    } else {
+      section.style.display = "none";
+    }
+  });
+
+  if(q === ""){
+    // Restaurar acordeón: solo la primera categoría abierta.
+    document.querySelectorAll(".categoria").forEach((section, i) => {
+      section.classList.toggle("abierta", i === 0);
+      const toggle = section.querySelector(".cat-toggle");
+      if(toggle) toggle.textContent = i === 0 ? "−" : "+";
+    });
+    sinResultados.style.display = "none";
+  } else {
+    sinResultados.style.display = huboMatchGlobal ? "none" : "block";
+  }
+}
+
 categorias.forEach((cat, catIdx) => {
   const slug = cat.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   const abierta = catIdx === 0; // la primera categoría (Ofertas) arranca desplegada
@@ -872,6 +1055,7 @@ categorias.forEach((cat, catIdx) => {
   productos.filter(p => p.cat === cat).forEach((p, idx) => {
     const card = document.createElement("div");
     card.className = "card reveal";
+    card.dataset.nombre = normalizarTexto(p.nombre);
     if(p.precioNormal) card.classList.add("card-oferta");
     card.style.setProperty("--i", idx % 8);
     const sinPrecio = p.opciones.length === 1 && p.opciones[0].precio === null;
